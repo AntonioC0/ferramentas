@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: cocamar-operacao-produtos
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MAX_FILE_SIZE_MB
+        value: "100"

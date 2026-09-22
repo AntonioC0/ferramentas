@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hub de ferramentas simples para trabalhar com arquivos.">
+  <title>Cocamar | Operação com Produtos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="inicio">
+    <section id="portal-view" class="portal-view">
+      <section id="ferramentas" class="tools-section" aria-labelledby="tools-title">
+        <div class="section-heading"><div><span class="section-kicker">APLICAÇÕES</span><h2 id="tools-title">Ferramentas do setor</h2></div><p>Escolha uma aplicação para começar.</p></div>
+        <div class="tools-grid">
+          <a class="tool-card tool-card-ready" href="#comprimir-pdf"><span class="tool-icon tool-icon-pdf" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2.75h8l4 4V20a1.25 1.25 0 0 1-1.25 1.25h-10.5A1.25 1.25 0 0 1 6 20V4A1.25 1.25 0 0 1 7.25 2.75Z"/><path d="M14 2.75V7h4M8.5 16.5h7M8.5 13h5"/></svg></span><div><span class="tool-status">DISPONÍVEL</span><h3>Comprimir PDF</h3><p>Reduza o tamanho dos seus PDFs mantendo a qualidade.</p></div><span class="card-arrow" aria-hidden="true">→</span></a>
+          <a class="tool-card tool-card-ready" href="#converter-arquivos"><span class="tool-icon tool-icon-convert" aria-hidden="true">↔</span><div><span class="tool-status">DISPONÍVEL</span><h3>Converter arquivos</h3><p>Converta PDF para Word ou Word para PDF em poucos cliques.</p></div><span class="card-arrow" aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </section>
+
+    <section id="compressor-view" class="compressor-view" hidden>
+      <div class="tool-top"><a class="back-link" href="#inicio">← Todas as ferramentas</a><span>PDF</span></div>
+      <section class="tool-hero"><div class="tool-icon tool-icon-pdf tool-title-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2.75h8l4 4V20a1.25 1.25 0 0 1-1.25 1.25h-10.5A1.25 1.25 0 0 1 6 20V4A1.25 1.25 0 0 1 7.25 2.75Z"/><path d="M14 2.75V7h4M8.5 16.5h7M8.5 13h5"/></svg></div><div><span class="section-kicker">OPERAÇÃO COM PRODUTOS · PDF</span><h1>Comprimir PDF</h1><p>Reduza o tamanho do arquivo sem complicação.</p></div></section>
+      <form id="compress-form" class="compressor-card">
+        <label id="drop-zone" class="drop-zone" for="file-input"><input id="file-input" name="pdf" type="file" accept="application/pdf,.pdf" hidden><span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 15v4h14v-4"/></svg></span><strong>Selecione um arquivo PDF</strong><span>ou arraste e solte aqui</span><small>Até 100 MB</small></label>
+        <div id="file-card" class="file-card" hidden><div class="pdf-badge">PDF</div><div class="file-copy"><strong id="file-name"></strong><span id="file-size"></span></div><button id="remove-file" class="icon-button" type="button" aria-label="Remover arquivo">×</button></div>
+        <fieldset id="quality-options" class="quality-options" hidden><legend>Nível de compressão</legend><label><input type="radio" name="level" value="screen"><span><b>Máxima</b><small>Menor arquivo</small></span></label><label><input type="radio" name="level" value="ebook" checked><span><b>Recomendada</b><small>Bom equilíbrio</small></span></label><label><input type="radio" name="level" value="printer"><span><b>Leve</b><small>Melhor qualidade</small></span></label></fieldset>
+        <button id="compress-button" class="primary-button" type="submit" hidden><span>Comprimir PDF</span><span aria-hidden="true">→</span></button><div id="progress" class="progress" hidden aria-live="polite"><div class="spinner"></div><strong>Comprimindo seu PDF…</strong><span>Isso pode levar alguns segundos.</span></div><div id="result" class="result" hidden aria-live="polite"><span class="success-icon">✓</span><h2>Seu PDF está pronto!</h2><p id="result-summary"></p><a id="download-button" class="primary-button" download>Baixar PDF comprimido ↓</a><button id="new-file" class="text-button" type="button">Comprimir outro arquivo</button></div><p id="error-message" class="error-message" hidden role="alert"></p>
+      </form>
+    </section>
+
+    <section id="converter-view" class="compressor-view" hidden>
+      <div class="tool-top"><a class="back-link" href="#inicio">← Todas as ferramentas</a><span>PDF · WORD</span></div>
+      <section class="tool-hero"><div class="tool-icon tool-icon-convert tool-title-icon" aria-hidden="true">↔</div><div><span class="section-kicker">OPERAÇÃO COM PRODUTOS · CONVERSOR</span><h1>Converter arquivos</h1><p>Converta PDF para Word ou Word para PDF.</p></div></section>
+      <form id="convert-form" class="compressor-card">
+        <fieldset id="conversion-options" class="quality-options"><legend>Tipo de conversão</legend><label><input type="radio" name="direction" value="pdf-to-word" checked><span><b>PDF para Word</b><small>Arquivo .docx</small></span></label><label><input type="radio" name="direction" value="word-to-pdf"><span><b>Word para PDF</b><small>Arquivo .pdf</small></span></label></fieldset>
+        <p class="conversion-note">Para preservar a aparência, PDFs são inseridos no Word como páginas em alta resolução.</p>
+        <label id="convert-drop-zone" class="drop-zone" for="convert-file-input"><input id="convert-file-input" name="file" type="file" accept="application/pdf,.pdf" hidden><span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 15v4h14v-4"/></svg></span><strong id="convert-drop-title">Selecione um arquivo PDF</strong><span>ou arraste e solte aqui</span><small id="convert-file-limit">Até 100 MB</small></label>
+        <div id="convert-file-card" class="file-card" hidden><div id="convert-file-badge" class="pdf-badge">PDF</div><div class="file-copy"><strong id="convert-file-name"></strong><span id="convert-file-size"></span></div><button id="convert-remove-file" class="icon-button" type="button" aria-label="Remover arquivo">×</button></div>
+        <button id="convert-button" class="primary-button" type="submit" hidden><span id="convert-button-label">Converter para Word</span><span aria-hidden="true">→</span></button>
+        <div id="convert-progress" class="progress" hidden aria-live="polite"><div class="spinner"></div><strong id="convert-progress-title">Convertendo seu arquivo…</strong><span>Isso pode levar alguns segundos.</span></div>
+        <div id="convert-result" class="result" hidden aria-live="polite"><span class="success-icon">✓</span><h2>Seu arquivo está pronto!</h2><p id="convert-result-summary"></p><a id="convert-download-button" class="primary-button" download>Baixar arquivo convertido ↓</a><button id="convert-new-file" class="text-button" type="button">Converter outro arquivo</button></div>
+        <p id="convert-error-message" class="error-message" hidden role="alert"></p>
+      </form>
+    </section>
+  </main>
+  <footer>© <span id="year"></span> Cocamar <span>·</span> Operação com Produtos</footer>
+  <script src="app.js" defer></script>
+</body>
+</html>

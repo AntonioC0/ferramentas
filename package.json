@@ -1,0 +1,24 @@
+{
+  "name": "cocamar-operacao-produtos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portal de ferramentas da Operação com Produtos da Cocamar",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "docx": "^9.7.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "multer": "^2.0.2"
+  },
+  "devDependencies": {
+    "pdfkit": "^0.20.2"
+  }
+}
