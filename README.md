@@ -1,4 +1,4 @@
-# Ferramenta
+# Cocamar — Operação com Produtos
 
 Portal interno de ferramentas para arquivos. A primeira versão inclui compressão de PDF e conversão entre PDF e Word.
 
@@ -6,11 +6,11 @@ Portal interno de ferramentas para arquivos. A primeira versão inclui compress�
 
 - Compressão de PDF em três níveis de qualidade
 - Conversão de Word (`.docx`) para PDF com LibreOffice
-- Conversão visual de PDF para Word (`.docx`)
+- Conversão editável de PDF para Word (`.docx`)
 - Limite configurável de upload (100 MB por padrão)
 - Arquivos temporários removidos ao final de cada solicitação
 
-> Na conversão de PDF para Word, cada página é inserida em alta resolução para preservar a aparência. Por isso, o conteúdo não fica editável como texto.
+> A conversão de PDF para Word prioriza conteúdo editável. PDFs com diagramação complexa podem exigir pequenos ajustes de layout no Word.
 
 ## Executar localmente com Docker
 
@@ -18,7 +18,7 @@ Portal interno de ferramentas para arquivos. A primeira versão inclui compress�
 docker build -t cocamar-operacao-produtos .
 docker run --rm -p 3000:3000 cocamar-operacao-produtos
 ```
-
+ 
 Acesse `http://localhost:3000`.
 
 ## Executar localmente sem Docker
@@ -28,6 +28,7 @@ Requisitos:
 - Node.js 18 ou superior
 - Ghostscript
 - LibreOffice
+- Python 3 com `pdf2docx` (`py -m pip install pdf2docx`)
 
 ```bash
 npm install

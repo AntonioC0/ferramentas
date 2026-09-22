@@ -2,9 +2,8 @@ const { spawn } = require('node:child_process');
 const fs = require('node:fs');
 const fsPromises = require('node:fs/promises');
 const path = require('node:path');
-const { Document, Packer, Paragraph, ImageRun } = require('docx');
 
-const ghostscriptCommand = () => process.env.GS_COMMAND || (process.platform === 'win32' ? 'gswin64c' : 'gs');
+const pythonCommand = () => process.env.PYTHON_COMMAND || (process.platform === 'win32' ? 'py' : 'python3');
 
 function libreOfficeCommand() {
   if (process.env.LIBREOFFICE_COMMAND) return process.env.LIBREOFFICE_COMMAND;
@@ -26,32 +25,12 @@ function run(command, args, notFoundMessage) {
   });
 }
 
-function pngDimensions(buffer) {
-  if (buffer.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') throw new Error('Não foi possível renderizar uma página do PDF.');
-  return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
-}
-
 async function convertPdfToWord(inputPath, outputPath) {
-  const imagesDir = path.join(path.dirname(outputPath), 'paginas');
-  await fsPromises.mkdir(imagesDir, { mode: 0o700 });
-  await run(ghostscriptCommand(), [
-    '-sDEVICE=png16m', '-r300', '-dNOPAUSE', '-dQUIET', '-dBATCH', '-dSAFER',
-    `-sOutputFile=${path.join(imagesDir, 'pagina-%04d.png')}`, inputPath
-  ], 'Ghostscript não encontrado no servidor.');
-
-  const pages = (await fsPromises.readdir(imagesDir)).filter(file => file.endsWith('.png')).sort();
-  if (!pages.length) throw new Error('O PDF não possui páginas que possam ser convertidas.');
-  const sections = await Promise.all(pages.map(async page => {
-    const image = await fsPromises.readFile(path.join(imagesDir, page));
-    const { width, height } = pngDimensions(image);
-    const widthTwips = Math.round((width / 300) * 1440);
-    const heightTwips = Math.round((height / 300) * 1440);
-    return {
-      properties: { page: { size: { width: widthTwips, height: heightTwips }, margin: { top: 0, right: 0, bottom: 0, left: 0 } } },
-      children: [new Paragraph({ spacing: { before: 0, after: 0, line: 0 }, children: [new ImageRun({ data: image, type: 'png', transformation: { width: Math.round((width / 300) * 96), height: Math.round((height / 300) * 96) } })] })]
-    };
-  }));
-  await fsPromises.writeFile(outputPath, await Packer.toBuffer(new Document({ sections })), { mode: 0o600 });
+  await run(
+    pythonCommand(),
+    ['-c', 'from pdf2docx import Converter; import sys; converter = Converter(sys.argv[1]); converter.convert(sys.argv[2]); converter.close()', inputPath, outputPath],
+    'Python com o conversor pdf2docx não foi encontrado no servidor.'
+  );
 }
 
 async function convertWordToPdf(inputPath, outputPath) {

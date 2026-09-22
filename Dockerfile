@@ -5,7 +5,11 @@ RUN apt-get update \
     ghostscript \
     libreoffice-writer \
     fonts-liberation2 \
+    python3 \
+    python3-pip \
   && rm -rf /var/lib/apt/lists/*
+
+RUN python3 -m pip install --no-cache-dir --break-system-packages pdf2docx
 
 WORKDIR /app
 COPY package*.json ./
